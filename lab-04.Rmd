@@ -1,7 +1,7 @@
 ---
 title: "Lab 04 - La Quinta is Spanish for next to Denny's, Pt. 1"
-author: "Insert your name here"
-date: "Insert date here"
+author: "Heather Hawkins"
+date: "01-31-23"
 output: github_document
 ---
 
@@ -10,25 +10,32 @@ output: github_document
 ```{r load-packages, message = FALSE}
 library(tidyverse) 
 library(dsbox) 
+library(tidyverse)
+library(skimr)
+#install.packages("devtools")
+#devtools::install_github("rstudio-education/dsbox")
 ```
 
 ```{r load-data, message = FALSE}
+library(readr)
 states <- read_csv("data/states.csv")
 ```
 
 ### Exercise 1
 
-Remove this text, and add your answer for Exercise 1 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r read-row-col-dennys}
+nrow(dennys)
+ncol(dennys)
+```
+There are 1643 rows and 6 columns for the Denny's data. The 6 rows represent the address, city, state, zip code, longitude, and latitude, while the rows represent each denny's location. 
 
 ### Exercise 2
 
-Remove this text, and add your answer for Exercise 2 here.
-Add code chunks as needed.
-Don't forget to label your code chunk.
-Do not use spaces in code chunk labels.
+```{r read-row-col-laquinta}
+nrow(laquinta)
+ncol(laquinta)
+```
+There are 909 rows and 6 columns for the La Quinta data. The 6 rows represent the address, city, state, zip code, longitude, and latitude, while the rows represent each La Quinta location. 
 
 ### Exercise 3
 
