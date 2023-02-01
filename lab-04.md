@@ -203,6 +203,11 @@ What about La Quinta? Most= Texas Least= Maine
 
 Is this surprising? Why or why not?
 
+It is suprising that Texas and California dont have the most of both.
+Since both CA and TX have plenty of land and also a large population, it
+is suprising that they are not both similar in number for both La
+Quintas and Denny;s
+
 \###Exercise 10
 
 Which states have the most Denny’s locations per thousand square miles?
@@ -211,33 +216,68 @@ single data frame. However before we do so, we need to add an identifier
 variable. We’ll call this establishment and set the value to “Denny’s”
 and “La Quinta” for the dn and lq data frames, respectively.
 
-dn \<- dn %\>% mutate(establishment = “Denny’s”) lq \<- lq %\>%
-mutate(establishment = “La Quinta”) Because the two data frames have the
-same columns, we can easily bind them with the bind_rows function:
+``` r
+dn <- dennys %>%
+  mutate(establishment = "Denny's")
+lq <- laquinta %>%
+  mutate(establishment = "La Quinta")
 
-dn_lq \<- bind_rows(dn, lq) We can plot the locations of the two
-establishments using a scatter plot, and color the points by the
-establishment type. Note that the latitude is plotted on the x-axis and
-the longitude on the y-axis.
+dn_lq <- bind_rows(dn, lq)
+```
 
-ggplot(dn_lq, mapping = aes(x = longitude, y = latitude, color =
-establishment)) + geom_point() The following two questions ask you to
-create visualizations. These visualizations should follow best practices
-you learned in class, such as informative titles, axis labels, etc. See
-<http://ggplot2.tidyverse.org/reference/labs.html> for help with the
-syntax. You can also choose different themes to change the overall look
-of your plots, see <http://ggplot2.tidyverse.org/reference/ggtheme.html>
-for help with these.
+We can plot the locations of the two establishments using a scatter
+plot, and color the points by the establishment type. Note that the
+latitude is plotted on the x-axis and the longitude on the y-axis.
+
+``` r
+ggplot(dn_lq, mapping = aes(x = longitude,
+                            y = latitude,
+                            color = establishment)) +
+  geom_point(alpha= .5)
+```
+
+![](lab-04_files/figure-gfm/Plot%20Location%20Data-1.png)<!-- -->
 
 \###Exercise 11
 
-Filter the data for observations in North Carolina only, and recreate
-the plot. You should also adjust the transparency of the points, by
-setting the alpha level, so that it’s easier to see the overplotted
-ones. Visually, does Mitch Hedberg’s joke appear to hold here?
+``` r
+nc <- dn_lq %>%
+  filter(state =="NC")
+ggplot(nc, mapping = aes(x = longitude,
+                            y = latitude,
+                            color = establishment)) +
+  geom_point(alpha=.7)+
+  scale_color_manual(values=c("orange", "green"))+
+  theme_dark()+
+  labs(title="North Carolina's Denny's and La Quinta Locations", color ="Establishment")+
+  ylab("Latitude")+
+  xlab("Longitude")
+```
+
+![](lab-04_files/figure-gfm/NC%20Locations-1.png)<!-- -->
+
+Visually, does Mitch Hedberg’s joke appear to hold here?
+
+Not really, There are not many Denny’s next to Laquintas in NC
 
 \###Exercise 12
 
-Now filter the data for observations in Texas only, and recreate the
-plot, with an appropriate alpha level. Visually, does Mitch Hedberg’s
-joke appear to hold here?
+``` r
+tx <- dn_lq %>%
+  filter(state =="TX")
+ggplot(tx, mapping = aes(x = longitude,
+                            y = latitude,
+                            color = establishment)) +
+  geom_point(alpha=.7)+
+  scale_color_manual(values=c("orange", "green"))+
+  theme_dark()+
+  labs(title="Texas' Denny's and La Quinta Locations", color ="Establishment")+
+  ylab("Latitude")+
+  xlab("Longitude")
+```
+
+![](lab-04_files/figure-gfm/Texasdn-la-1.png)<!-- --> Visually, does
+Mitch Hedberg’s joke appear to hold here?
+
+Definitely, There seems to be alot of Denny’s near La Quintas in Texas
+(probably bc there are so many La Quintas)
